@@ -28,9 +28,6 @@ jobs:
         chmod +x chainctl
         sudo mv chainctl /usr/local/bin
 
-        AUDIENCE="issuer.mattmoor.dev"
-        IDTOKEN=$(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=${AUDIENCE}" | jq -r '.value')
-
         # Point to my dev cluster.
         chainctl config save \
            --issuer   https://issuer.mattmoor.dev \
@@ -39,9 +36,7 @@ jobs:
            --registry https://registry.mattmoor.dev \
            --yes
 
-        # TODO(mattmoor): Test with ambient credentials.
-        chainctl auth login --identity-token "${IDTOKEN}" --identity-uid "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
-
+        chainctl auth login --identity-uid "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
         chainctl iam groups ls
 
     - uses: ko-build/setup-ko@v0.6
