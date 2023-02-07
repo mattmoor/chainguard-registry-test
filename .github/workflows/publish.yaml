@@ -22,6 +22,9 @@ jobs:
     - uses: actions/checkout@v2
 
     - run: |
+
+        set -x
+
         # Use the binary from staging for faster updates.
         cd $(mktemp -d)
         wget -O chainctl "https://dl.chainops.dev/chainctl/latest/chainctl_linux_$(uname -m)"
@@ -36,7 +39,7 @@ jobs:
            --registry https://registry.mattmoor.dev \
            --yes
 
-        chainctl auth login --identity-uid "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
+        chainctl auth login --identity "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
         chainctl iam groups ls
 
     - uses: ko-build/setup-ko@v0.6
