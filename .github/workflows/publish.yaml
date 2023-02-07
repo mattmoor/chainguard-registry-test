@@ -39,8 +39,6 @@ jobs:
            --registry https://registry.mattmoor.dev \
            --yes
 
-        chainctl config view
-
         # TODO(mattmoor): Test with ambient credentials.
         chainctl auth login --identity-token "${IDTOKEN}" --identity-uid "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
 
