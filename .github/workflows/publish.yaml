@@ -35,6 +35,7 @@ jobs:
         chainctl config save \
            --issuer   https://issuer.mattmoor.dev \
            --api      https://console-api.mattmoor.dev \
+           --audience https://console-api.mattmoor.dev \
            --registry https://registry.mattmoor.dev \
            --yes
 
