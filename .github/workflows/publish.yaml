@@ -39,8 +39,9 @@ jobs:
            --registry https://registry.mattmoor.dev \
            --yes
 
-        chainctl auth login --identity "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
-        chainctl iam groups ls
+        chainctl auth configure-docker --identity "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
 
     - uses: ko-build/setup-ko@v0.6
-    - run: ko build --bare
+    - env:
+        KO_DOCKER_REPO: registry.mattmoor.dev/public.com
+      run: ko build --tags yolo --bare
