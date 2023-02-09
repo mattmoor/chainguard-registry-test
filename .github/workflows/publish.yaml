@@ -21,26 +21,10 @@ jobs:
         go-version: 1.18
     - uses: actions/checkout@v2
 
-    - env:
-        CHAINCTL_DEBUG: "true"
-      run: |
-
-        set -x
-
-        # Use the binary from staging for faster updates.
-        cd $(mktemp -d)
-        wget -O chainctl "https://dl.chainops.dev/chainctl/latest/chainctl_linux_$(uname -m)"
-        chmod +x chainctl
-        sudo mv chainctl /usr/local/bin
-
-        chainctl config save \
-           --issuer   https://issuer.chainops.dev \
-           --api      https://console-api.chainops.dev \
-           --audience https://console-api.chainops.dev \
-           --registry https://tmp.chainreg.biz \
-           --yes
-
-        chainctl auth configure-docker --identity "a06277b3fbd9a0fbd522c3e66e0543cc96ff0932/4302ec17e3156f77"
+    - uses: mattmoor/actions-1/setup-chainctl@identity-actions
+      with:
+        environment: chainops.dev
+        identity: a06277b3fbd9a0fbd522c3e66e0543cc96ff0932/4302ec17e3156f77
 
     - uses: ko-build/setup-ko@v0.6
     - env:
