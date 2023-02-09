@@ -37,7 +37,7 @@ jobs:
            --issuer   https://issuer.chainops.dev \
            --api      https://console-api.chainops.dev \
            --audience https://console-api.chainops.dev \
-           --registry https://tmp.registry.biz \
+           --registry https://tmp.chainreg.biz \
            --yes
 
         chainctl auth configure-docker --identity "a06277b3fbd9a0fbd522c3e66e0543cc96ff0932/4302ec17e3156f77"
