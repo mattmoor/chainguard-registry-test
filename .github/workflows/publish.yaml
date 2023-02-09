@@ -33,9 +33,16 @@ jobs:
         chmod +x chainctl
         sudo mv chainctl /usr/local/bin
 
+        chainctl config save \
+           --issuer   https://issuer.chainops.dev \
+           --api      https://console-api.chainops.dev \
+           --audience https://console-api.chainops.dev \
+           --registry https://tmp.registry.biz \
+           --yes
+
         chainctl auth configure-docker --identity "a06277b3fbd9a0fbd522c3e66e0543cc96ff0932/4302ec17e3156f77"
 
     - uses: ko-build/setup-ko@v0.6
     - env:
-        KO_DOCKER_REPO: registry.chainops.dev/a06277b3fbd9a0fbd522c3e66e0543cc96ff0932
+        KO_DOCKER_REPO: tmp.chainreg.biz/a06277b3fbd9a0fbd522c3e66e0543cc96ff0932
       run: ko build --tags yolo --bare
