@@ -1,0 +1,48 @@
+name: Publish (mattmoor)
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  publish:
+    name: Publish (mattmoor)
+
+    # https://docs.github.com/en/actions/reference/authentication-in-a-workflow
+    permissions:
+      id-token: write
+      contents: read
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v2
+      with:
+        go-version: 1.18
+    - uses: actions/checkout@v2
+
+    - env:
+        CHAINCTL_DEBUG: "true"
+      run: |
+
+        set -x
+
+        # Use the binary from staging for faster updates.
+        cd $(mktemp -d)
+        wget -O chainctl "https://dl.chainops.dev/chainctl/latest/chainctl_linux_$(uname -m)"
+        chmod +x chainctl
+        sudo mv chainctl /usr/local/bin
+
+        # Point to my dev cluster.
+        chainctl config save \
+           --issuer   https://issuer.mattmoor.dev \
+           --api      https://console-api.mattmoor.dev \
+           --audience https://console-api.mattmoor.dev \
+           --registry https://registry.mattmoor.dev \
+           --yes
+
+        chainctl auth configure-docker --identity "5ff01a2ed3cfc3dd4e81f17afaf5d7df634c6923/96dd73c00c469f4f"
+
+    - uses: ko-build/setup-ko@v0.6
+    - env:
+        KO_DOCKER_REPO: registry.mattmoor.dev/public.com
+      run: ko build --tags yolo --bare
