@@ -21,7 +21,7 @@ jobs:
         go-version: 1.18
     - uses: actions/checkout@v2
 
-    - uses: mattmoor/actions-1/setup-chainctl@identity-actions
+    - uses: chainguard-dev/actions/setup-chainctl@main
       with:
         environment: chainops.dev
         identity: 540cc3ad9d1fcba95c0e42d89542cce47393f596/d3475b130c8f909b
