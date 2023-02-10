@@ -31,6 +31,10 @@ jobs:
         KO_DOCKER_REPO: tmp.chainreg.biz/mattmoor.priv
       run: ko build --tags yolo --bare
 
-    - uses: sigstore/cosign-installer@main
-    - run: |
-        cosign copy tmp.chainreg.biz/mattmoor.priv:yolo tmp.chainreg.biz/mattmoor.pub
+#     - uses: sigstore/cosign-installer@main
+#     - run: |
+#         cosign copy tmp.chainreg.biz/mattmoor.priv:yolo tmp.chainreg.biz/mattmoor.pub
+
+    - env:
+        KO_DOCKER_REPO: tmp.chainreg.biz/mattmoor.pub
+      run: ko build --tags yolo --bare
