@@ -24,9 +24,13 @@ jobs:
     - uses: mattmoor/actions-1/setup-chainctl@identity-actions
       with:
         environment: chainops.dev
-        identity: a06277b3fbd9a0fbd522c3e66e0543cc96ff0932/4302ec17e3156f77
+        identity: 540cc3ad9d1fcba95c0e42d89542cce47393f596/d3475b130c8f909b
 
     - uses: ko-build/setup-ko@v0.6
     - env:
-        KO_DOCKER_REPO: tmp.chainreg.biz/a06277b3fbd9a0fbd522c3e66e0543cc96ff0932
+        KO_DOCKER_REPO: tmp.chainreg.biz/mattmoor.priv
       run: ko build --tags yolo --bare
+
+    - uses: sigstore/cosign-installer@main
+    - run: |
+        cosign copy tmp.chainreg.biz/mattmoor.priv:yolo tmp.chainreg.biz/mattmoor.pub
