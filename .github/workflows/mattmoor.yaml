@@ -46,3 +46,7 @@ jobs:
     - env:
         KO_DOCKER_REPO: registry.mattmoor.dev/public.com
       run: ko build --tags yolo --bare
+
+    - uses: imjasonh/setup-crane@v0.1
+    - run: crane manifest registry.mattmoor.dev/public.com
+
