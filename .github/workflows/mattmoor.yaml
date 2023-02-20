@@ -48,5 +48,5 @@ jobs:
       run: ko build --tags yolo --bare
 
     - uses: imjasonh/setup-crane@v0.1
-    - run: crane manifest registry.mattmoor.dev/public.com/chainguard-registry-test
+    - run: crane manifest registry.mattmoor.dev/public.com/chainguard-registry-test:yolo
 
