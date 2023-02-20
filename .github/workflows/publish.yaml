@@ -27,8 +27,8 @@ jobs:
 
     - uses: ko-build/setup-ko@v0.6
     - env:
-        KO_DOCKER_REPO: tmp.chainreg.biz/mattmoor.priv
+        KO_DOCKER_REPO: chainreg.biz/mattmoor.priv/chainguard-registry-test
       run: ko build --tags asdf --bare
 
     - uses: sigstore/cosign-installer@main
-    - run: cosign copy -f tmp.chainreg.biz/mattmoor.priv:asdf tmp.chainreg.biz/mattmoor.pub
+    - run: cosign copy -f chainreg.biz/mattmoor.priv/chainguard-registry-test:asdf chainreg.biz/mattmoor.pub/chainguard-registry-test
