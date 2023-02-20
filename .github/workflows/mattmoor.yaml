@@ -44,9 +44,9 @@ jobs:
 
     - uses: ko-build/setup-ko@v0.6
     - env:
-        KO_DOCKER_REPO: registry.mattmoor.dev/public.com/${{ github.run_id }}-${{ github.run_attempt }}
+        KO_DOCKER_REPO: registry.mattmoor.dev/public.com # /${{ github.run_id }}-${{ github.run_attempt }}
       run: ko build --tags yolo --bare
 
-    - uses: imjasonh/setup-crane@v0.1
-    - run: crane manifest registry.mattmoor.dev/public.com/${{ github.run_id }}-${{ github.run_attempt }}:yolo
+#     - uses: imjasonh/setup-crane@v0.1
+#     - run: crane manifest registry.mattmoor.dev/public.com/${{ github.run_id }}-${{ github.run_attempt }}:yolo
 
