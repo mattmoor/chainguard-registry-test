@@ -31,4 +31,23 @@ jobs:
       run: ko build --tags asdf --bare
 
     - uses: sigstore/cosign-installer@main
-    - run: cosign copy -f chainreg.biz/mattmoor.priv/chainguard-registry-test:asdf chainreg.biz/mattmoor.pub/chainguard-registry-test
+    - run: |
+        cosign copy -f chainreg.biz/mattmoor.priv/chainguard-registry-test:asdf \
+            chainreg.biz/mattmoor.pub/chainguard-registry-test
+
+    - run: |
+        # Copy over a bunch of the Chainguard Images
+        cosign copy -f cgr.dev/chainguard/static:latest-glibc \
+            chainreg.biz/mattmoor.pub/static:latest-glibc
+        cosign copy -f cgr.dev/chainguard/static:latest \
+            chainreg.biz/mattmoor.pub/static:latest
+
+        cosign copy -f cgr.dev/chainguard/busybox:latest-glibc \
+            chainreg.biz/mattmoor.pub/busybox:latest-glibc
+        cosign copy -f cgr.dev/chainguard/busybox:latest \
+            chainreg.biz/mattmoor.pub/busybox:latest
+
+        cosign copy -f cgr.dev/chainguard/git:latest-glibc \
+            chainreg.biz/mattmoor.pub/git:latest-glibc
+        cosign copy -f cgr.dev/chainguard/git:latest \
+            chainreg.biz/mattmoor.pub/git:latest
