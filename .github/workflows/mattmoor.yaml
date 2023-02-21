@@ -14,8 +14,9 @@ jobs:
       contents: read
 
     env:
-      REGISTRY: registry.mattmoor.dev
-      REPO_PREFIX: ${{ github.run_id }}-${{ github.run_attempt }}-
+      REGISTRY: registry-1.mattmoor.dev
+      REPO_PREFIX: via-1
+      # REPO_PREFIX: ${{ github.run_id }}-${{ github.run_attempt }}-
 
     runs-on: ubuntu-latest
     steps:
