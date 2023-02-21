@@ -25,29 +25,45 @@ jobs:
         environment: chainops.dev
         identity: 540cc3ad9d1fcba95c0e42d89542cce47393f596/d3475b130c8f909b
 
-    - uses: ko-build/setup-ko@v0.6
-    - env:
-        KO_DOCKER_REPO: chainreg.biz/mattmoor.priv/chainguard-registry-test
-      run: ko build --tags asdf --bare
+#     - uses: ko-build/setup-ko@v0.6
+#     - env:
+#         KO_DOCKER_REPO: chainreg.biz/mattmoor.priv/chainguard-registry-test
+#       run: ko build --tags asdf --bare
+
+    - uses: sigstore/cosign-installer@main
+#     - run: |
+#         cosign copy -f chainreg.biz/mattmoor.priv/chainguard-registry-test:asdf \
+#             chainreg.biz/mattmoor.pub/chainguard-registry-test
 
     - uses: sigstore/cosign-installer@main
     - run: |
-        cosign copy -f chainreg.biz/mattmoor.priv/chainguard-registry-test:asdf \
-            chainreg.biz/mattmoor.pub/chainguard-registry-test
-
-    - run: |
         # Copy over a bunch of the Chainguard Images
         cosign copy -f cgr.dev/chainguard/static:latest-glibc \
-            chainreg.biz/mattmoor.pub/static:latest-glibc
+            chainreg.biz/mattmoor.priv/${{ github.run_id }}-${{ github.run_attempt }}-static:latest-glibc
         cosign copy -f cgr.dev/chainguard/static:latest \
-            chainreg.biz/mattmoor.pub/static:latest
-
+            chainreg.biz/mattmoor.priv/${{ github.run_id }}-${{ github.run_attempt }}-static:latest
         cosign copy -f cgr.dev/chainguard/busybox:latest-glibc \
-            chainreg.biz/mattmoor.pub/busybox:latest-glibc
+            chainreg.biz/mattmoor.priv/${{ github.run_id }}-${{ github.run_attempt }}-busybox:latest-glibc
         cosign copy -f cgr.dev/chainguard/busybox:latest \
-            chainreg.biz/mattmoor.pub/busybox:latest
-
+            chainreg.biz/mattmoor.priv/${{ github.run_id }}-${{ github.run_attempt }}-busybox:latest
         cosign copy -f cgr.dev/chainguard/git:latest-glibc \
-            chainreg.biz/mattmoor.pub/git:latest-glibc
+            chainreg.biz/mattmoor.priv/${{ github.run_id }}-${{ github.run_attempt }}-git:latest-glibc
         cosign copy -f cgr.dev/chainguard/git:latest \
-            chainreg.biz/mattmoor.pub/git:latest
+            chainreg.biz/mattmoor.priv/${{ github.run_id }}-${{ github.run_attempt }}-git:latest
+
+#     - run: |
+#         # Copy over a bunch of the Chainguard Images
+#         cosign copy -f cgr.dev/chainguard/static:latest-glibc \
+#             chainreg.biz/mattmoor.pub/static:latest-glibc
+#         cosign copy -f cgr.dev/chainguard/static:latest \
+#             chainreg.biz/mattmoor.pub/static:latest
+
+#         cosign copy -f cgr.dev/chainguard/busybox:latest-glibc \
+#             chainreg.biz/mattmoor.pub/busybox:latest-glibc
+#         cosign copy -f cgr.dev/chainguard/busybox:latest \
+#             chainreg.biz/mattmoor.pub/busybox:latest
+
+#         cosign copy -f cgr.dev/chainguard/git:latest-glibc \
+#             chainreg.biz/mattmoor.pub/git:latest-glibc
+#         cosign copy -f cgr.dev/chainguard/git:latest \
+#             chainreg.biz/mattmoor.pub/git:latest
