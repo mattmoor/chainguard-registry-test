@@ -52,23 +52,28 @@ jobs:
 #         KO_DOCKER_REPO: registry.mattmoor.dev/public.com/${{ github.run_id }}-${{ github.run_attempt }}
 #       run: ko build --tags yolo --bare
 
-#     - uses: imjasonh/setup-crane@v0.1
-#     - run: crane manifest registry.mattmoor.dev/public.com/${{ github.run_id }}-${{ github.run_attempt }}:yolo
-
-
-    - uses: sigstore/cosign-installer@main
+    - uses: imjasonh/setup-crane@v0.1
     - run: |
-        # Copy over a bunch of the Chainguard Images
-        cosign copy -f cgr.dev/chainguard/static:latest-glibc \
-            ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}static:latest-glibc
-        cosign copy -f cgr.dev/chainguard/static:latest \
-            ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticstatic:latest
-        cosign copy -f cgr.dev/chainguard/busybox:latest-glibc \
-            ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticbusybox:latest-glibc
-        cosign copy -f cgr.dev/chainguard/busybox:latest \
-            ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticbusybox:latest
-        cosign copy -f cgr.dev/chainguard/git:latest-glibc \
-            ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticgit:latest-glibc
-        cosign copy -f cgr.dev/chainguard/git:latest \
-            ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticgit:latest
+        crane copy cgr.dev/chainguard/static:latest-glibc registry.mattmoor.dev/public.com/blah
+
+    - run: |
+        # Verbose so we can look for successful mounting
+        crane copy --verbose registry.mattmoor.dev/public.com/blah registry.mattmoor.dev/public.com/blah2
+
+
+#     - uses: sigstore/cosign-installer@main
+#     - run: |
+#         # Copy over a bunch of the Chainguard Images
+#         cosign copy -f cgr.dev/chainguard/static:latest-glibc \
+#             ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}static:latest-glibc
+#         cosign copy -f cgr.dev/chainguard/static:latest \
+#             ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticstatic:latest
+#         cosign copy -f cgr.dev/chainguard/busybox:latest-glibc \
+#             ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticbusybox:latest-glibc
+#         cosign copy -f cgr.dev/chainguard/busybox:latest \
+#             ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticbusybox:latest
+#         cosign copy -f cgr.dev/chainguard/git:latest-glibc \
+#             ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticgit:latest-glibc
+#         cosign copy -f cgr.dev/chainguard/git:latest \
+#             ${{ env.REGISTRY }}/public.com/${{ env.REPO_PREFIX }}staticgit:latest
 
