@@ -57,6 +57,10 @@ jobs:
         crane copy cgr.dev/chainguard/static:latest-glibc registry.mattmoor.dev/public.com/blah
 
     - run: |
+        # Pause the workflow until the token expires.
+        sleep 3700
+
+    - run: |
         # Verbose so we can look for successful mounting
         crane copy --verbose registry.mattmoor.dev/public.com/blah registry.mattmoor.dev/public.com/blah2
 
